@@ -4,7 +4,7 @@ A guide to building a Raspberry Pi LED Matrix Clock to be used by STEAM student 
 
 The inspiration for this project was from the request by the [Hydaburg City School](http://www.hydaburg.k12.ak.us/) as part of the support of their 2017 STEAMFest. The school was in need of clocks through out their three campus buildings for students and teachers to reference and the T3 team used that need to put together this clock kit using a combination of custom hardware with off the shelf hardware and softwar.  The clock project allows students and teachers to work through building the hardware, configuring software, and integrating into their network a Raspberry Pi based LED Matrix clock with future expanstion capabilities of a PA system, scrolling messages, or wherever their imagination takes them.
 
-See the [credits](#credits) section below for collaborators and contributors to this project.
+See the [credits](#credits) section below for collaborators and contributors to this project. We welcome support and [contributions](#contributing) to this guide.
 
 ## Requirements
 
@@ -29,7 +29,7 @@ To get the basic functionality of the clock the software requirements are extrem
 
 ### Hardware setup
 
-(Chester draft words here)
+_Chester words here_
 
 ### Software setup
 
@@ -48,22 +48,36 @@ To get the basic functionality of the clock the software requirements are extrem
  ```
    mkdir ~/projects
    cd ~/projects
-   git clone (url)
-   cd (repo)
+   git clone https://github.com/hzeller/rpi-rgb-led-matrix.git
+   cd rpi-rgb-led-matrix
    make
-   cd (examples)
+   cd examples-api-use
    make
-   cd ../(utils)
-   sudo apt-get install (stuff)
+   cd ../utils
+   sudo apt install libgraphicsmagick++-dev libwebp-dev
    make
  ```
- * 
  
  At this point the Pi is is customized for your local timezone, network, and has the needed tools to talk to the LED matrix and is ready for network.
+ 
  
 ### Network Setup
 
 _words written on airplane lost - need to rewrite them after I help somebody else go through this again_
+
+
+### Clock on boot
+
+_words written on plane lost :( - need to rewrite again_
+
+# Next Steps
+
+THe guide to this point has created clock using the demo tool provided as part of the [hzeller's](https://github.com/hzeller/)  [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix/) library.
+
+This setup can be taken many directions at this point
+* Setting up Node-Red to control the LED matrix and attach as an InternetOfThings targets
+  * Streaming custom messages from various sources like twitter, email, or other services.
+* Turning the Rpi into a network target for pixels streaming and use tools like [Processing](https://processing.org/) and the [rpi-matrix-pixelpusher]https://github.com/hzeller/rpi-matrix-pixelpusher) 
 
 # Credits
 
@@ -74,3 +88,6 @@ This project was made possible through the collaboration and support of multiple
 * NFS Project - Modern Blanket Toss (TODO: award #)
 * State of Alaska Title II-B MSP Grant to support Hydaburg and Hoonah's STEAM initatives.
 
+## Contributing
+
+We encourage contributions to this guide.  Pull requests are merged via Github, you can find the documentation about how to fork a repository and start contributing here [https://help.github.com/articles/fork-a-repo](https://help.github.com/articles/fork-a-repo).
