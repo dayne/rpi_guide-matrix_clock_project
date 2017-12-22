@@ -1,4 +1,4 @@
-# rpi_guide-matrix_clock_project
+# Guide: Raspberry Pi RGB Matrix Clock
 
 A guide to building a Raspberry Pi LED Matrix Clock to be used by STEAM student and teachers participating or follow curriculum developed by the NSF grant Teaching Through Technology (T3), a project developed to support Science Technology Engineering Arts (STEAM). The goal of of T3 (insert formal project goal).  The Raspberry Pi Matrix Clock Project `rpi_guide-matrix_clock_project` was developed to support the T3 STEAM objectives by introducing a flexible platform, Raspberry Pi and an LED Matrix, to teach a variety of hardware, software, and network technologies to K-12 students and teachers.
 
