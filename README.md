@@ -90,7 +90,7 @@ and comment out the `dtparam` line like so:
  After making our custom 18x36.bdf font you can launch a full matrix clock like so:
 ```
 cd ~projects/rpi-rgb-led-matrix/examples-api-use
-sudo ./clock --led-chain=2 -f ../fonts/18x36.bdf
+sudo ./clock --led-chain=4 -f ../fonts/18x36.bdf
 ```
 If that works you are ready to cause it to be launched on boot.
 
@@ -115,7 +115,8 @@ exit 0
 
 Before the exit line we want to launch our clock by adding the following lines:
 ```
-/home/pi/projects/rpi-rgb-led-matrix/examples-api-use/clock --led-chain=2 \
+/home/pi/projects/rpi-rgb-led-matrix/examples-api-use/clock \ 
+     --led-chain=4 \
      -f /home/pi/projects/rpi-rgb-led-matrix/fonts/18x36.bdf \
      -d "%H:%M %p"
 ```
