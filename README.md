@@ -60,6 +60,72 @@ _Chester words here_
  
  At this point the Pi is is customized for your local timezone, network, and has the needed tools to talk to the LED matrix and is ready for network.
  
+ ## disable sound
+ 
+ Built in sound card for Raspberry Pi is not compatible with the matrix driver.  Best to disable it.
+ 
+ Edit `/boot/config.txt` and find, towards the bottome of the file, the line:
+ ```
+ # Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+```
+and comment out the `dtparam` line like so:
+```
+# Enable audio (loads snd_bcm2835)
+# dtparam=audio=on
+```
+ 
+ ## custom font
+ 
+ Customize font size optimized for our click matrix (double the 9x18):
+ 
+ ```
+ sudo apt install bdfresize
+ cd ~/rpi-rgb-led-matrix/fonts
+ bdfresize -f 2 9x18.bdf > 18x36.bdf
+ ```
+ 
+ ## launching clock
+ 
+ After making our custom 18x36.bdf font you can launch a full matrix clock like so:
+```
+cd ~projects/rpi-rgb-led-matrix/examples-api-use
+sudo ./clock --led-chain=2 -f ../fonts/18x36.bdf
+```
+If that works you are ready to cause it to be launched on boot.
+
+## launching on boot
+
+You can add the clock launching command to `/etc/rc.local` so the clock.  You can edit it using `sudo nano /etc/rc.local/
+
+
+
+By default it looks something like this on Raspbian.  
+```
+# By default this script does nothing.
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+exit 0
+```
+
+Before the exit line we want to launch our clock by adding the following lines:
+```
+/home/pi/projects/rpi-rgb-led-matrix/examples-api-use/clock --led-chain=2 \
+     -f /home/pi/projects/rpi-rgb-led-matrix/fonts/18x36.bdf \
+     -d "%H:%M %p"
+```
+
+Upon a reboot you should be able to have clock launch on boot.
+
+## Killing the clock after a boot
+
+Say you added that line above to `/etc/rc.local` to launch the clock but you want to hack more and you'll need to kill the running clock command.
+
  
 ### Network Setup
 
