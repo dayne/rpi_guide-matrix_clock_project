@@ -118,7 +118,7 @@ Before the exit line we want to launch our clock by adding the following lines:
 /home/pi/projects/rpi-rgb-led-matrix/examples-api-use/clock \ 
      --led-chain=4 \
      -f /home/pi/projects/rpi-rgb-led-matrix/fonts/18x36.bdf \
-     -d "%H:%M %p"
+     -d "%H:%M %p" &
 ```
 
 Upon a reboot you should be able to have clock launch on boot.
@@ -126,6 +126,23 @@ Upon a reboot you should be able to have clock launch on boot.
 ## Killing the clock after a boot
 
 Say you added that line above to `/etc/rc.local` to launch the clock but you want to hack more and you'll need to kill the running clock command.
+
+You can use the killall command to do that like so
+
+`sudo killall clock`
+
+## add clock to path
+
+```
+cp /home/pi/projects/rpi-rgb-led-matrix/examples-api-use/clock /usr/local/bin
+cp /home/pi/projects/rpi-rgb-led-matrix/fonts/18x36.bdf /tmp
+```
+
+That will allow you to run the clock with easier command line path:
+
+```
+clock --led-chain=4 -f /tmp/18x36.tdf
+```
 
  
 ### Network Setup
