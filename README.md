@@ -163,7 +163,7 @@ THe guide to this point has created clock using the demo tool provided as part o
 This setup can be taken many directions at this point
 * Setting up Node-Red to control the LED matrix and attach as an InternetOfThings targets
   * Streaming custom messages from various sources like twitter, email, or other services.
-* Turning the Rpi into a network target for pixels streaming and use tools like [Processing](https://processing.org/) and the [rpi-matrix-pixelpusher]https://github.com/hzeller/rpi-matrix-pixelpusher) 
+* Turning the Rpi into a network target for pixels streaming and use tools like [Processing](https://processing.org/) and the [rpi-matrix-pixelpusher](https://github.com/hzeller/rpi-matrix-pixelpusher) 
 
 # Credits
 
