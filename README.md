@@ -131,6 +131,8 @@ You can use the killall command to do that like so
 
 `sudo killall clock`
 
+Verify it is down: `ps -Aef | grep clock
+
 ## add clock to path
 
 ```
