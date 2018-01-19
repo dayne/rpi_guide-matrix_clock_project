@@ -146,6 +146,10 @@ That will allow you to run the clock with easier command line path:
 clock --led-chain=4 -f /tmp/18x36.tdf
 ```
 
+```
+clock --led-chain=4 -f /tmp/18x36.bdf -d "%H:%M%p"
+
+```
  
 ### Network Setup
 
