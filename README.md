@@ -22,7 +22,7 @@ To get the basic functionality of the clock the software requirements are extrem
 
 * [Current version of Raspbian](https://www.raspberrypi.org/downloads/raspbian/)
   * _Raspbian Stretch 2017-11-29 at time of writing_
-* [hzeller/rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix/]
+* [hzeller/rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix/)
 * Lttle bit of configuration for the local network pi is being deployed at.
 
 ## Setup
@@ -96,9 +96,9 @@ If that works you are ready to cause it to be launched on boot.
 
 ## launching on boot
 
-You can add the clock launching command to `/etc/rc.local` so the clock.  You can edit it using `sudo nano /etc/rc.local/
+You can add the clock launching command to `/etc/rc.local` so the clock.  You can edit it using 
 
-
+`sudo nano /etc/rc.local/`
 
 By default it looks something like this on Raspbian.  
 ```
@@ -132,10 +132,6 @@ Say you added that line above to `/etc/rc.local` to launch the clock but you wan
 
 _words written on airplane lost - need to rewrite them after I help somebody else go through this again_
 
-
-### Clock on boot
-
-_words written on plane lost :( - need to rewrite again_
 
 # Next Steps
 
