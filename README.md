@@ -31,7 +31,7 @@ To get the basic functionality of the clock the software requirements are extrem
 
 _Chester words here_
 
-### Software setup
+### Basic Pi setup
 
 * Install latest Raspbian on SD card.
 * Boot up with Pi connected to a monitor, keyboard and mouse
@@ -43,8 +43,27 @@ _Chester words here_
    * set timezone to local timezone
    * enable ssh
  * Give the pi a custom clock name
-   * `sudo hostnamectl set-hostname 
- * Download and setup the (rpi-rgb matrix) software
+   * `sudo hostnamectl set-hostname (hostname of your pi here)`
+   
+   
+ #### disable sound
+ 
+ The built in sound card for Raspberry Pi is not compatible with the matrix driver.  Best to disable it.
+ 
+ Edit `/boot/config.txt` and find, towards the bottome of the file, the line:
+ ```
+ # Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+```
+and comment out the `dtparam` line like so:
+```
+# Enable audio (loads snd_bcm2835)
+# dtparam=audio=on
+```
+ 
+ ### RPI RGB LED Matix Software
+ 
+ Download and setup the (rpi-rgb matrix) software
  ```
    mkdir ~/projects
    cd ~/projects
@@ -60,32 +79,17 @@ _Chester words here_
  
  At this point the Pi is is customized for your local timezone, network, and has the needed tools to talk to the LED matrix and is ready for network.
  
- ## disable sound
- 
- Built in sound card for Raspberry Pi is not compatible with the matrix driver.  Best to disable it.
- 
- Edit `/boot/config.txt` and find, towards the bottome of the file, the line:
- ```
- # Enable audio (loads snd_bcm2835)
-dtparam=audio=on
-```
-and comment out the `dtparam` line like so:
-```
-# Enable audio (loads snd_bcm2835)
-# dtparam=audio=on
-```
- 
  ## custom font
  
  Customize font size optimized for our click matrix (double the 9x18):
  
  ```
  sudo apt install bdfresize
- cd ~/rpi-rgb-led-matrix/fonts
+ cd ~/projects/rpi-rgb-led-matrix/fonts
  bdfresize -f 2 9x18.bdf > 18x36.bdf
  ```
  
- ## launching clock
+ ## testing the clock
  
  After making our custom 18x36.bdf font you can launch a full matrix clock like so:
 ```
@@ -93,6 +97,24 @@ cd ~projects/rpi-rgb-led-matrix/examples-api-use
 sudo ./clock --led-chain=4 -f ../fonts/18x36.bdf
 ```
 If that works you are ready to cause it to be launched on boot.
+
+## add clock to path
+
+```
+cp ~/projects/rpi-rgb-led-matrix/examples-api-use/clock /usr/local/bin
+cp ~/projects/rpi-rgb-led-matrix/fonts/18x36.bdf /usr/local/share/rpi-clock-18x36.bdf
+```
+
+That will allow you to run the clock with easier command line path:
+
+```
+clock --led-chain=4 -f /tmp/18x36.tdf
+```
+
+```
+clock --led-chain=4 -f /tmp/18x36.bdf -d "%H:%M%p"
+
+```
 
 ## launching on boot
 
@@ -115,10 +137,12 @@ exit 0
 
 Before the exit line we want to launch our clock by adding the following lines:
 ```
-/home/pi/projects/rpi-rgb-led-matrix/examples-api-use/clock \ 
+/usr/local/bin/clock \ 
      --led-chain=4 \
-     -f /home/pi/projects/rpi-rgb-led-matrix/fonts/18x36.bdf \
+     -f /usr/local/share/rpi-clock-18x36.bdf \
      -d "%H:%M %p" &
+     
+ exit 0 # original exit line
 ```
 
 Upon a reboot you should be able to have clock launch on boot.
@@ -132,24 +156,6 @@ You can use the killall command to do that like so
 `sudo killall clock`
 
 Verify it is down: `ps -Aef | grep clock
-
-## add clock to path
-
-```
-cp /home/pi/projects/rpi-rgb-led-matrix/examples-api-use/clock /usr/local/bin
-cp /home/pi/projects/rpi-rgb-led-matrix/fonts/18x36.bdf /tmp
-```
-
-That will allow you to run the clock with easier command line path:
-
-```
-clock --led-chain=4 -f /tmp/18x36.tdf
-```
-
-```
-clock --led-chain=4 -f /tmp/18x36.bdf -d "%H:%M%p"
-
-```
  
 ### Network Setup
 
