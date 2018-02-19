@@ -45,6 +45,7 @@ To get the basic functionality of the clock the software requirements are extrem
    * _**Very important:** do this as we are about to enable ssh_
  * `sudo raspi-config`
    * set keyboard to US English
+     * 4 Localization -> I3 Keyboard Layout -> OK to default 104 -> 
    * set timezone to local timezone
    * enable ssh
  * Give the pi a custom clock name
@@ -141,10 +142,9 @@ fi
 exit 0
 ```
 
-Before the exit line add the clock launcher:
+Before the exit line add the clock launcher we used before with an `&` at end of the line:
 ```
-clock --led-chain=4 -f /usr/local/share/rpi-clock-18x36.bdf \
-      -d "%H:%M %p" &
+clock --led-chain=4 -f /usr/local/share/18x36.bdf -d "%H:%M %p" &
 ```
 
 Upon a reboot you should be able to have clock launch on boot.
