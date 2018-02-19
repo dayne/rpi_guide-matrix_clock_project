@@ -1,6 +1,6 @@
 # Guide: Raspberry Pi RGB Matrix Clock
 
-A guide to building a Raspberry Pi LED Matrix Clock to be used by STEAM student and teachers participating or follow curriculum developed by the NSF grant Teaching Through Technology (T3), a project developed to support Science Technology Engineering Arts (STEAM). The goal of of T3 (insert formal project goal).  The Raspberry Pi Matrix Clock Project `rpi_guide-matrix_clock_project` was developed to support the T3 STEAM objectives by introducing a flexible platform, Raspberry Pi and an LED Matrix, to teach a variety of hardware, software, and network technologies to K-12 students and teachers.
+A guide to building a Raspberry Pi LED Matrix Clock to be used by STEAM student and teachers participating or follow curriculum developed by the NSF grant [Teaching Through Technology (T3) t3alliance.org](https://t3alliance.org/), a project developed to support Science Technology Engineering Arts (STEAM). The goal of of T3 (insert formal project goal).  The Raspberry Pi Matrix Clock Project `rpi_guide-matrix_clock_project` was developed to support the T3 STEAM objectives by introducing a flexible platform, Raspberry Pi and an LED Matrix, to teach a variety of hardware, software, and network technologies to K-12 students and teachers.
 
 The inspiration for this project was from the request by the [Hydaburg City School](http://www.hydaburg.k12.ak.us/) as part of the support of their 2017 STEAMFest. The school was in need of clocks through out their three campus buildings for students and teachers to reference and the T3 team used that need to put together this clock kit using a combination of custom hardware with off the shelf hardware and softwar.  The clock project allows students and teachers to work through building the hardware, configuring software, and integrating into their network a Raspberry Pi based LED Matrix clock with future expanstion capabilities of a PA system, scrolling messages, or wherever their imagination takes them.
 
@@ -13,8 +13,8 @@ See the [credits](#credits) section below for collaborators and contributors to 
 * Raspberry Pi
 * SD Card
 * 4xLED Matrix & cables & screws
-* Custom Raspberry Pi matrix hat
-* 5V Power Supply with (?) amps
+* Custom Raspberry Pi hat for powering & controlling the matrix.
+* 5V Power Supply with 5 amps
 
 ### Software requirements
 
@@ -29,7 +29,12 @@ To get the basic functionality of the clock the software requirements are extrem
 
 ### Hardware setup
 
-_Chester words here_
+* connect data cable between the two matrix screens
+* connect power cable between screens
+* connect data cable to be connected to the RPi Hat
+* add stand-off screws
+* attach hat to RPi
+  * connect data cable and power cable to hat
 
 ### Basic Pi setup
 
@@ -44,7 +49,6 @@ _Chester words here_
    * enable ssh
  * Give the pi a custom clock name
    * `sudo hostnamectl set-hostname (hostname of your pi here)`
-   
    
  #### disable sound
  
@@ -102,25 +106,25 @@ If that works you are ready to cause it to be launched on boot.
 
 ```
 cp ~/projects/rpi-rgb-led-matrix/examples-api-use/clock /usr/local/bin
-cp ~/projects/rpi-rgb-led-matrix/fonts/18x36.bdf /usr/local/share/rpi-clock-18x36.bdf
+cp ~/projects/rpi-rgb-led-matrix/fonts/18x36.bdf /usr/local/share/18x36.bdf
 ```
 
 That will allow you to run the clock with easier command line path:
 
 ```
-clock --led-chain=4 -f /tmp/18x36.tdf
+clock --led-chain=4 -f /usr/local/share/18x36.tdf
 ```
 
 ```
-clock --led-chain=4 -f /tmp/18x36.bdf -d "%H:%M%p"
+clock --led-chain=4 -f /usr/local/share/18x36.bdf -d "%H:%M%p"
 
 ```
 
 ## launching on boot
 
-You can add the clock launching command to `/etc/rc.local` so the clock.  You can edit it using 
+You can add the clock launching command to `/etc/rc.local` upon boot it automatically becomes a clock. 
 
-`sudo nano /etc/rc.local/`
+`sudo nano /etc/rc.local`
 
 By default it looks something like this on Raspbian.  
 ```
@@ -132,26 +136,24 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
+## ADD CLOCK LAUNCHER HERE ###
+
 exit 0
 ```
 
-Before the exit line we want to launch our clock by adding the following lines:
+Before the exit line add the clock launcher:
 ```
-/usr/local/bin/clock \ 
-     --led-chain=4 \
-     -f /usr/local/share/rpi-clock-18x36.bdf \
-     -d "%H:%M %p" &
-     
- exit 0 # original exit line
+clock --led-chain=4 -f /usr/local/share/rpi-clock-18x36.bdf \
+      -d "%H:%M %p" &
 ```
 
 Upon a reboot you should be able to have clock launch on boot.
 
-## Killing the clock after a boot
+### Killing the clock after a boot
 
-Say you added that line above to `/etc/rc.local` to launch the clock but you want to hack more and you'll need to kill the running clock command.
+If you've auto launched the clock using `/etc/rc.local` and want hack more but clock is in the way you will need to kill the running clock.
 
-You can use the killall command to do that like so
+The `killall` command can find and kill the clock like so:
 
 `sudo killall clock`
 
@@ -159,8 +161,7 @@ Verify it is down: `ps -Aef | grep clock
  
 ### Network Setup
 
-_words written on airplane lost - need to rewrite them after I help somebody else go through this again_
-
+You will want your RPi to be on the network and syncing it's internal clock to the internet so you can be assured your clock is the correct time.
 
 # Next Steps
 
